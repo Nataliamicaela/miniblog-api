@@ -39,6 +39,55 @@ router.get('/', async (req, res) => {
 
 });
 
+// GET posts by author
+router.get('/author/:authorId', async (req, res) => {
+
+  const { authorId } = req.params;
+
+  try {
+
+    const result = await pool.query(
+
+      `SELECT
+        posts.id,
+        posts.title,
+        posts.content,
+        posts.published,
+        posts.created_at,
+        authors.name AS author_name,
+        authors.email AS author_email
+      FROM posts
+      JOIN authors
+      ON posts.author_id = authors.id
+      WHERE authors.id = $1
+      ORDER BY posts.id`,
+
+      [authorId]
+
+    );
+
+    if (result.rows.length === 0) {
+
+      return res.status(404).json({
+        error: 'No posts found for this author'
+      });
+
+    }
+
+    res.json(result.rows);
+
+  } catch (error) {
+
+    console.error(error);
+
+    res.status(500).json({
+      error: 'Error fetching author posts'
+    });
+
+  }
+
+});
+
 // GET post by id
 router.get('/:id', async (req, res) => {
 
