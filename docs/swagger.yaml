@@ -1,0 +1,103 @@
+openapi: 3.0.0
+
+info:
+  title: MiniBlog API
+  version: 1.0.0
+  description: API REST for managing authors and posts
+
+servers:
+  - url: http://localhost:3000
+
+paths:
+
+  /authors:
+    get:
+      summary: Get all authors
+      responses:
+        200:
+          description: List of authors
+
+    post:
+      summary: Create a new author
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                bio:
+                  type: string
+
+      responses:
+        201:
+          description: Author created
+
+  /authors/{id}:
+    get:
+      summary: Get author by ID
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        200:
+          description: Author found
+
+        404:
+          description: Author not found
+
+  /posts:
+    get:
+      summary: Get all posts
+      responses:
+        200:
+          description: List of posts
+
+    post:
+      summary: Create a new post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                author_id:
+                  type: integer
+                published:
+                  type: boolean
+
+      responses:
+        201:
+          description: Post created
+  
+  /posts/{id}:
+    get:
+      summary: Get post by ID
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        200:
+          description: Post found
+
+        404:
+          description: Post not found

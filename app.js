@@ -3,10 +3,24 @@ const express = require('express');
 const authorsRouter = require('./routes/authors');
 const postsRouter = require('./routes/posts');
 
+const swaggerUi = require('swagger-ui-express');
+
+const YAML = require('yamljs');
+
 const app = express();
+
+const swaggerDocument = YAML.load(
+  './docs/swagger.yaml'
+);
 
 // Middleware
 app.use(express.json());
+
+app.use(
+  '/api-docs',
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerDocument)
+);
 
 // Routes
 app.use('/authors', authorsRouter);
