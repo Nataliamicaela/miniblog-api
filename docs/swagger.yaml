@@ -6,7 +6,7 @@ info:
   description: API REST para gestionar autores y publicaciones
 
 servers:
-    url: https://miniblog-api-production-18a1.up.railway.app
+  - url: https://miniblog-api-production-18a1.up.railway.app
 
 paths:
 
