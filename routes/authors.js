@@ -29,7 +29,15 @@ router.get('/', async (req, res) => {
 // GET author by id
 router.get('/:id', async (req, res) => {
 
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
+
+  if (isNaN(id)) {
+
+    return res.status(400).json({
+      error: 'Invalid author ID'
+    });
+
+  }
 
   try {
 
@@ -113,7 +121,15 @@ router.post('/', async (req, res) => {
 // UPDATE author
 router.put('/:id', async (req, res) => {
 
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
+
+  if (isNaN(id)) {
+
+    return res.status(400).json({
+      error: 'Invalid author ID'
+    });
+
+  }
 
   const { name, email, bio } = req.body;
 
@@ -166,7 +182,15 @@ router.put('/:id', async (req, res) => {
 // DELETE author
 router.delete('/:id', async (req, res) => {
 
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
+
+  if (isNaN(id)) {
+
+    return res.status(400).json({
+      error: 'Invalid author ID'
+    });
+
+  }
 
   try {
 

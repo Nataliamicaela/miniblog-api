@@ -42,7 +42,15 @@ router.get('/', async (req, res) => {
 // GET posts by author
 router.get('/author/:authorId', async (req, res) => {
 
-  const { authorId } = req.params;
+  const authorId = parseInt(req.params.authorId);
+
+  if (isNaN(authorId)) {
+
+    return res.status(400).json({
+      error: 'Invalid author ID'
+    });
+
+  }
 
   try {
 
@@ -91,7 +99,15 @@ router.get('/author/:authorId', async (req, res) => {
 // GET post by id
 router.get('/:id', async (req, res) => {
 
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
+
+  if (isNaN(id)) {
+
+    return res.status(400).json({
+      error: 'Invalid post ID'
+    });
+
+  }
 
   try {
 
@@ -179,6 +195,14 @@ router.post('/', async (req, res) => {
 
     console.error(error);
 
+    if (error.code === '23503') {
+
+      return res.status(400).json({
+        error: 'Author does not exist'
+      });
+
+    }
+
     res.status(500).json({
       error: 'Error creating post'
     });
@@ -190,7 +214,15 @@ router.post('/', async (req, res) => {
 // UPDATE post
 router.put('/:id', async (req, res) => {
 
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
+
+  if (isNaN(id)) {
+
+    return res.status(400).json({
+      error: 'Invalid post ID'
+    });
+
+  }
 
   const {
     title,
@@ -236,6 +268,14 @@ router.put('/:id', async (req, res) => {
 
     console.error(error);
 
+    if (error.code === '23503') {
+
+      return res.status(400).json({
+        error: 'Author does not exist'
+      });
+
+    }
+
     res.status(500).json({
       error: 'Error updating post'
     });
@@ -247,7 +287,15 @@ router.put('/:id', async (req, res) => {
 // DELETE post
 router.delete('/:id', async (req, res) => {
 
-  const { id } = req.params;
+  const id = parseInt(req.params.id);
+
+  if (isNaN(id)) {
+
+    return res.status(400).json({
+      error: 'Invalid post ID'
+    });
+
+  }
 
   try {
 
