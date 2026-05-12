@@ -2,8 +2,6 @@ const request = require('supertest');
 
 const app = require('../app');
 
-const pool = require('../db/config');
-
 describe('Authors endpoints', () => {
 
   test('GET /authors should return all authors', async () => {
@@ -66,6 +64,52 @@ describe('Authors endpoints', () => {
 
   expect(response.body.error)
     .toBe('Author not found');
+
+  });
+
+  test('PUT /authors/:id should update an author', async () => {
+
+  const newAuthor = {
+    name: 'Author Update',
+    email: `update${Date.now()}@email.com`,
+    bio: 'Original bio'
+  };
+
+  const createdAuthor = await request(app)
+    .post('/authors')
+    .send(newAuthor);
+
+  const updatedData = {
+    name: 'Updated Author'
+  };
+
+  const response = await request(app)
+    .put(`/authors/${createdAuthor.body.id}`)
+    .send(updatedData);
+
+  expect(response.statusCode).toBe(200);
+
+  expect(response.body.name)
+    .toBe(updatedData.name);
+
+  });
+
+  test('DELETE /authors/:id should delete an author', async () => {
+
+  const newAuthor = {
+    name: 'Delete Author',
+    email: `delete${Date.now()}@email.com`
+  };
+
+  const createdAuthor = await request(app)
+    .post('/authors')
+    .send(newAuthor);
+
+  const response = await request(app)
+    .delete(`/authors/${createdAuthor.body.id}`);
+
+  expect(response.statusCode)
+    .toBe(204);
 
   });
 

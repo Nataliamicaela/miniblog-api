@@ -1,16 +1,16 @@
 {
   "name": "miniblog-api",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node --watch server.js",
-    "test": "jest"
+    "test": "jest --forceExit"
   },
   "keywords": [],
-  "author": "",
+  "author": "Natalia Alvarez",
   "license": "ISC",
-  "description": "",
+  "description": "API REST para la gestión de autores y publicaciones utilizando Node.js, Express y PostgreSQL",
   "dependencies": {
     "dotenv": "^17.4.2",
     "express": "^5.2.1",

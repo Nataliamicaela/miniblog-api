@@ -55,6 +55,54 @@ paths:
         404:
           description: Author not found
 
+      put:
+      summary: Update author by ID
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                bio:
+                  type: string
+
+      responses:
+        200:
+          description: Author updated
+
+        404:
+          description: Author not found
+
+    delete:
+      summary: Delete author by ID
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        204:
+          description: Author deleted
+
+        404:
+          description: Author not found
+
   /posts:
     get:
       summary: Get all posts
@@ -98,6 +146,56 @@ paths:
       responses:
         200:
           description: Post found
+
+        404:
+          description: Post not found
+
+      put:
+      summary: Update post by ID
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                content:
+                  type: string
+                author_id:
+                  type: integer
+                published:
+                  type: boolean
+
+      responses:
+        200:
+          description: Post updated
+
+        404:
+          description: Post not found
+
+    delete:
+      summary: Delete post by ID
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+
+      responses:
+        204:
+          description: Post deleted
 
         404:
           description: Post not found
