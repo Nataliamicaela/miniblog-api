@@ -152,6 +152,25 @@ paths:
         201:
           description: Post creado correctamente
 
+  /posts/author/{authorId}:
+    get:
+      summary: Obtener posts de un autor específico
+
+      parameters:
+        - in: path
+          name: authorId
+          required: true
+
+          schema:
+            type: integer
+
+      responses:
+        200:
+          description: Lista de posts del autor
+
+        404:
+          description: No se encontraron posts para este autor
+
   /posts/{id}:
     get:
       summary: Obtener post por ID

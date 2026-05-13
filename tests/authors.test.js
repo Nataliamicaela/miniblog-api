@@ -38,78 +38,117 @@ describe('Authors endpoints', () => {
 
   });
 
+  test('POST /authors should return 400 if email already exists', async () => {
+
+    const email = `duplicate${Date.now()}@email.com`;
+
+    const author = {
+      name: 'Author One',
+      email
+    };
+
+    await request(app)
+      .post('/authors')
+      .send(author);
+
+    const response = await request(app)
+      .post('/authors')
+      .send({
+        name: 'Author Two',
+        email
+      });
+
+    expect(response.statusCode).toBe(400);
+
+    expect(response.body.error)
+      .toBe('Email already exists');
+
+  });
+
   test('POST /authors should return 400 if name is missing', async () => {
 
-  const invalidAuthor = {
-    email: `test${Date.now()}@email.com`
-  };
+    const invalidAuthor = {
+      email: `test${Date.now()}@email.com`
+    };
 
-  const response = await request(app)
-    .post('/authors')
-    .send(invalidAuthor);
+    const response = await request(app)
+      .post('/authors')
+      .send(invalidAuthor);
 
-  expect(response.statusCode).toBe(400);
+    expect(response.statusCode).toBe(400);
 
-  expect(response.body.error)
-    .toBe('Name and email are required');
+    expect(response.body.error)
+      .toBe('Name and email are required');
+
+  });
+
+  test('GET /authors/:id should return 400 for invalid ID', async () => {
+
+    const response = await request(app)
+      .get('/authors/abc');
+
+    expect(response.statusCode).toBe(400);
+
+    expect(response.body.error)
+      .toBe('Invalid author ID');
 
   });
 
   test('GET /authors/:id should return 404 if author does not exist', async () => {
 
-  const response = await request(app)
-    .get('/authors/999999');
+    const response = await request(app)
+      .get('/authors/999999');
 
-  expect(response.statusCode).toBe(404);
+    expect(response.statusCode).toBe(404);
 
-  expect(response.body.error)
-    .toBe('Author not found');
+    expect(response.body.error)
+      .toBe('Author not found');
 
   });
 
   test('PUT /authors/:id should update an author', async () => {
 
-  const newAuthor = {
-    name: 'Author Update',
-    email: `update${Date.now()}@email.com`,
-    bio: 'Original bio'
-  };
+    const newAuthor = {
+      name: 'Author Update',
+      email: `update${Date.now()}@email.com`,
+      bio: 'Original bio'
+    };
 
-  const createdAuthor = await request(app)
-    .post('/authors')
-    .send(newAuthor);
+    const createdAuthor = await request(app)
+      .post('/authors')
+      .send(newAuthor);
 
-  const updatedData = {
-    name: 'Updated Author'
-  };
+    const updatedData = {
+      name: 'Updated Author'
+    };
 
-  const response = await request(app)
-    .put(`/authors/${createdAuthor.body.id}`)
-    .send(updatedData);
+    const response = await request(app)
+      .put(`/authors/${createdAuthor.body.id}`)
+      .send(updatedData);
 
-  expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(200);
 
-  expect(response.body.name)
-    .toBe(updatedData.name);
+    expect(response.body.name)
+      .toBe(updatedData.name);
 
   });
 
   test('DELETE /authors/:id should delete an author', async () => {
 
-  const newAuthor = {
-    name: 'Delete Author',
-    email: `delete${Date.now()}@email.com`
-  };
+    const newAuthor = {
+      name: 'Delete Author',
+      email: `delete${Date.now()}@email.com`
+    };
 
-  const createdAuthor = await request(app)
-    .post('/authors')
-    .send(newAuthor);
+    const createdAuthor = await request(app)
+      .post('/authors')
+      .send(newAuthor);
 
-  const response = await request(app)
-    .delete(`/authors/${createdAuthor.body.id}`);
+    const response = await request(app)
+      .delete(`/authors/${createdAuthor.body.id}`);
 
-  expect(response.statusCode)
-    .toBe(204);
+    expect(response.statusCode)
+      .toBe(204);
 
   });
 

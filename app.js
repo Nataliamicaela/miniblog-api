@@ -9,8 +9,10 @@ const YAML = require('yamljs');
 
 const app = express();
 
+const path = require('path');
+
 const swaggerDocument = YAML.load(
-  './docs/swagger.yaml'
+  path.join(__dirname, './docs/swagger.yaml')
 );
 
 // Middleware

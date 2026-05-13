@@ -1,5 +1,10 @@
 # 📝 MiniBlog API
 
+![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)
+![Railway](https://img.shields.io/badge/Deployed%20on-Railway-0B0D0E?logo=railway&logoColor=white)
+
 > API REST desarrollada con **Node.js**, **Express** y **PostgreSQL** para gestionar autores y publicaciones.
 
 ---
@@ -62,6 +67,8 @@ PORT=3000
 
 > ⚠️ No subas el archivo `.env` al repositorio. Asegurate de que esté incluido en `.gitignore`.
 
+> 💡 El archivo `.env.example` incluido en el repositorio contiene todas las variables necesarias como referencia.
+
 ---
 
 ## 🗄️ Configuración de la base de datos
@@ -116,6 +123,8 @@ Los tests están escritos con **Jest** y **Supertest**, que permite testear los 
 
 Una vez levantado el servidor, la documentación interactiva está disponible en:
 
+### Local
+
 ```
 http://localhost:3000/api-docs
 ```
@@ -125,6 +134,15 @@ Desde ahí podés:
 - 📋 Visualizar todos los endpoints disponibles
 - 🔍 Ver los parámetros y esquemas de request/response
 - ▶️ Probar requests directamente desde el navegador
+
+### Producción
+
+```
+https://miniblog-api-production-18a1.up.railway.app/api-docs 
+```
+
+![Swagger UI](docs/swagger-preview.png)
+
 
 ---
 
@@ -155,11 +173,41 @@ Desde ahí podés:
 
 ## ☁️ Deployment
 
-Este proyecto está preparado para desplegarse en **Railway**.
+La API está desplegada en **Railway** y disponible públicamente:
 
-- La configuración se gestiona completamente a través de **variables de entorno**
-- No se requieren cambios en el código para producción
-- Configurá las mismas variables del `.env` directamente en el panel de Railway
+| Recurso | URL |
+|---|---|
+| 🌐 API Base | https://miniblog-api-production-18a1.up.railway.app |
+| 📖 Swagger Online | https://miniblog-api-production-18a1.up.railway.app/api-docs |
+
+La configuración se gestiona completamente a través de variables de entorno.
+No se requieren cambios en el código para producción.
+
+---
+
+## 🤖 Uso de IA en el proyecto
+
+Durante el desarrollo de este proyecto se utilizó IA como herramienta de apoyo en las siguientes etapas:
+
+### Diseño del schema SQL
+Se iteró el diseño de la base de datos con prompts progresivamente más detallados,
+incorporando buenas prácticas como TIMESTAMPTZ, índices y constraints.
+
+### Generación y revisión de código
+Se utilizó IA para asistir en la generación de boilerplate,
+validaciones, rutas, middlewares y debugging del proyecto,
+revisando y adaptando cada resultado al contexto real de la aplicación.
+
+### Testing
+Se generaron casos de prueba base con Jest y Supertest, luego ajustados
+manualmente para cubrir los escenarios específicos de la API.
+
+### Documentación
+La estructura del README y los comentarios de Swagger fueron asistidos por IA
+y revisados para garantizar precisión técnica.
+
+> ⚠️ Todo el código generado fue revisado, comprendido y adaptado manualmente.
+> La IA se utilizó como herramienta de productividad, no como reemplazo del criterio propio.
 
 ---
 
