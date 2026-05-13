@@ -2,8 +2,6 @@ const request = require('supertest');
 
 const app = require('../app');
 
-const pool = require('../db/config');
-
 describe('Posts endpoints', () => {
 
   test('GET /posts should return all posts', async () => {
