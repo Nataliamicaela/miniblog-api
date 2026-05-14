@@ -7,7 +7,7 @@ const {
   createAuthor,
   updateAuthor,
   deleteAuthor
-} = require('../controllers/authors');
+} = require('../controllers/authors.controller')
 
 router.get('/', getAllAuthors);
 router.get('/:id', getAuthorById);

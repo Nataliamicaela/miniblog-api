@@ -8,7 +8,7 @@ const {
   createPost,
   updatePost,
   deletePost
-} = require('../controllers/posts');
+} = require('../controllers/posts.controller');
 
 router.get('/', getAllPosts);
 router.get('/author/:authorId', getPostsByAuthor);
