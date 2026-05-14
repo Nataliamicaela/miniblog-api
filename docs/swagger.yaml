@@ -1,19 +1,19 @@
 openapi: 3.0.0
- 
+
 info:
   title: MiniBlog API
   version: 1.0.0
   description: API REST para gestionar autores y publicaciones
- 
+
 servers:
   - url: https://miniblog-api-production-18a1.up.railway.app
- 
+
 paths:
- 
+
   /authors:
     get:
       summary: Obtener todos los autores
- 
+
       responses:
         200:
           description: Lista de autores
@@ -23,17 +23,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Author'
- 
+
     post:
       summary: Crear un nuevo autor
- 
+
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AuthorInput'
- 
+
       responses:
         201:
           description: Autor creado correctamente
@@ -47,11 +47,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
+
   /authors/{id}:
     get:
       summary: Obtener autor por ID
- 
+
       parameters:
         - in: path
           name: id
@@ -59,7 +59,7 @@ paths:
           schema:
             type: integer
           example: 1
- 
+
       responses:
         200:
           description: Autor encontrado
@@ -79,10 +79,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
+
     put:
       summary: Actualizar autor por ID
- 
+
       parameters:
         - in: path
           name: id
@@ -90,14 +90,14 @@ paths:
           schema:
             type: integer
           example: 1
- 
+
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/AuthorUpdate'
- 
+
       responses:
         200:
           description: Autor actualizado correctamente
@@ -117,10 +117,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
+
     delete:
       summary: Eliminar autor por ID
- 
+
       parameters:
         - in: path
           name: id
@@ -128,7 +128,7 @@ paths:
           schema:
             type: integer
           example: 1
- 
+
       responses:
         204:
           description: Autor eliminado correctamente
@@ -144,11 +144,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
+
   /posts:
     get:
       summary: Obtener todos los posts
- 
+
       responses:
         200:
           description: Lista de posts
@@ -158,17 +158,17 @@ paths:
                 type: array
                 items:
                   $ref: '#/components/schemas/Post'
- 
+
     post:
       summary: Crear un nuevo post
- 
+
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PostInput'
- 
+
       responses:
         201:
           description: Post creado correctamente
@@ -182,11 +182,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
+
   /posts/author/{authorId}:
     get:
       summary: Obtener posts de un autor específico
- 
+
       parameters:
         - in: path
           name: authorId
@@ -194,7 +194,7 @@ paths:
           schema:
             type: integer
           example: 1
- 
+
       responses:
         200:
           description: Lista de posts del autor
@@ -216,11 +216,11 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
+
   /posts/{id}:
     get:
       summary: Obtener post por ID
- 
+
       parameters:
         - in: path
           name: id
@@ -228,7 +228,7 @@ paths:
           schema:
             type: integer
           example: 1
- 
+
       responses:
         200:
           description: Post encontrado
@@ -248,10 +248,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
+
     put:
       summary: Actualizar post por ID
- 
+
       parameters:
         - in: path
           name: id
@@ -259,14 +259,14 @@ paths:
           schema:
             type: integer
           example: 1
- 
+
       requestBody:
         required: true
         content:
           application/json:
             schema:
               $ref: '#/components/schemas/PostUpdate'
- 
+
       responses:
         200:
           description: Post actualizado correctamente
@@ -286,10 +286,10 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
+
     delete:
       summary: Eliminar post por ID
- 
+
       parameters:
         - in: path
           name: id
@@ -297,7 +297,7 @@ paths:
           schema:
             type: integer
           example: 1
- 
+
       responses:
         204:
           description: Post eliminado correctamente
@@ -313,13 +313,144 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Error'
- 
+
+  /comments:
+    get:
+      summary: Obtener todos los comentarios
+
+      responses:
+        200:
+          description: Lista de comentarios
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+
+    post:
+      summary: Crear un nuevo comentario
+
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CommentInput'
+
+      responses:
+        201:
+          description: Comentario creado correctamente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        400:
+          description: Datos inválidos o post/autor inexistente
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /comments/post/{postId}:
+    get:
+      summary: Obtener comentarios de un post específico
+
+      parameters:
+        - in: path
+          name: postId
+          required: true
+          schema:
+            type: integer
+          example: 1
+
+      responses:
+        200:
+          description: Lista de comentarios del post
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Comment'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: No se encontraron comentarios para este post
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+  /comments/{id}:
+    get:
+      summary: Obtener comentario por ID
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          example: 1
+
+      responses:
+        200:
+          description: Comentario encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Comment'
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Comentario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
+    delete:
+      summary: Eliminar comentario por ID
+
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          example: 1
+
+      responses:
+        204:
+          description: Comentario eliminado correctamente
+        400:
+          description: ID inválido
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+        404:
+          description: Comentario no encontrado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 # ─────────────────────────────────────────
 # Schemas reutilizables
 # ─────────────────────────────────────────
 components:
   schemas:
- 
+
     # Author completo (response)
     Author:
       type: object
@@ -340,7 +471,7 @@ components:
           type: string
           format: date-time
           example: "2024-01-15T10:30:00Z"
- 
+
     # Author para POST (campos requeridos marcados)
     AuthorInput:
       type: object
@@ -357,7 +488,7 @@ components:
         bio:
           type: string
           example: "Desarrolladora full-stack apasionada por Node.js"
- 
+
     # Author para PUT (todos opcionales, se actualiza con COALESCE)
     AuthorUpdate:
       type: object
@@ -371,7 +502,7 @@ components:
         bio:
           type: string
           example: "Desarrolladora full-stack apasionada por Node.js"
- 
+
     # Post completo (response — incluye datos del autor por el JOIN)
     Post:
       type: object
@@ -398,7 +529,7 @@ components:
         author_email:
           type: string
           example: "ana@example.com"
- 
+
     # Post para POST (campos requeridos marcados)
     PostInput:
       type: object
@@ -419,7 +550,7 @@ components:
         published:
           type: boolean
           example: false
- 
+
     # Post para PUT (todos opcionales)
     PostUpdate:
       type: object
@@ -436,7 +567,49 @@ components:
         published:
           type: boolean
           example: true
- 
+
+    # Comment completo (response — incluye datos del post y autor por el JOIN)
+    Comment:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: "Excelente artículo, muy claro."
+        created_at:
+          type: string
+          format: date-time
+          example: "2024-01-15T10:30:00Z"
+        post_title:
+          type: string
+          example: "Introducción a Node.js"
+        author_name:
+          type: string
+          example: "Ana García"
+        author_email:
+          type: string
+          example: "ana@example.com"
+
+    # Comment para POST (campos requeridos marcados)
+    CommentInput:
+      type: object
+      required:
+        - post_id
+        - author_id
+        - content
+      properties:
+        post_id:
+          type: integer
+          example: 1
+        author_id:
+          type: integer
+          example: 1
+        content:
+          type: string
+          example: "Excelente artículo, muy claro."
+
     # Respuesta de error genérica
     Error:
       type: object

@@ -1,8 +1,8 @@
 # 📝 MiniBlog API
 
-![Node.js](https://img.shields.io/badge/Node.js-18.x-339933?logo=node.js&logoColor=white)
-![Express](https://img.shields.io/badge/Express-4.x-000000?logo=express&logoColor=white)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-4169E1?logo=postgresql&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-22.x-339933?logo=node.js&logoColor=white)
+![Express](https://img.shields.io/badge/Express-5.x-000000?logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-18-4169E1?logo=postgresql&logoColor=white)
 ![Railway](https://img.shields.io/badge/Deployed%20on-Railway-0B0D0E?logo=railway&logoColor=white)
 
 > API REST desarrollada con **Node.js**, **Express** y **PostgreSQL** para gestionar autores y publicaciones.
@@ -168,6 +168,16 @@ https://miniblog-api-production-18a1.up.railway.app/api-docs
 | `POST`   | `/posts`                      | Crear un nuevo post                  |
 | `PUT`    | `/posts/:id`                  | Actualizar un post                   |
 | `DELETE` | `/posts/:id`                  | Eliminar un post                     |
+
+### Comments
+
+| Método   | Endpoint                        | Descripción                           |
+|----------|---------------------------------|---------------------------------------|
+| `GET`    | `/comments`                     | Obtener todos los comentarios         |
+| `GET`    | `/comments/:id`                 | Obtener un comentario por ID          |
+| `GET`    | `/comments/post/:postId`        | Obtener comentarios de un post        |
+| `POST`   | `/comments`                     | Crear un nuevo comentario             |
+| `DELETE` | `/comments/:id`                 | Eliminar un comentario                |
 
 ---
 

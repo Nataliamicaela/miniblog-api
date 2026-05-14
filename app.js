@@ -1,15 +1,13 @@
+const path = require('path');
 const express = require('express');
+const YAML = require('yamljs');
+const swaggerUi = require('swagger-ui-express');
 
 const authorsRouter = require('./routes/authors');
 const postsRouter = require('./routes/posts');
-
-const swaggerUi = require('swagger-ui-express');
-
-const YAML = require('yamljs');
+const commentsRouter = require('./routes/comments');
 
 const app = express();
-
-const path = require('path');
 
 const swaggerDocument = YAML.load(
   path.join(__dirname, './docs/swagger.yaml')
@@ -27,6 +25,7 @@ app.use(
 // Routes
 app.use('/authors', authorsRouter);
 app.use('/posts', postsRouter);
+app.use('/comments', commentsRouter);
 
 // Home route
 app.get('/', (req, res) => {
