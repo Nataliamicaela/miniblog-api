@@ -13,6 +13,7 @@
 
 - ✅ CRUD completo de **authors**
 - ✅ CRUD completo de **posts**
+- ✅ CRUD completo de **comments**    
 - ✅ Base de datos **PostgreSQL**
 - ✅ Queries SQL parametrizadas (sin ORM)
 - ✅ Validaciones de entrada
@@ -63,6 +64,7 @@ DB_NAME=miniblog
 DB_USER=postgres
 DB_PASSWORD=tu_password
 PORT=3000
+NODE_ENV=development
 ```
 
 > ⚠️ No subas el archivo `.env` al repositorio. Asegurate de que esté incluido en `.gitignore`.
@@ -141,7 +143,7 @@ Desde ahí podés:
 https://miniblog-api-production-18a1.up.railway.app/api-docs 
 ```
 
-![Swagger UI](docs/swagger-preview.png)
+![Swagger UI](docs/img/swagger-preview.png)
 
 
 ---
