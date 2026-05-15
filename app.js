@@ -6,6 +6,7 @@ const swaggerUi = require('swagger-ui-express');
 const authorsRouter = require('./routes/authors');
 const postsRouter = require('./routes/posts');
 const commentsRouter = require('./routes/comments');
+const errorHandler = require('./middlewares/errorHandler');
 
 const app = express();
 
@@ -44,5 +45,8 @@ app.use((req, res) => {
   });
 
 });
+
+// Global error handler
+app.use(errorHandler);
 
 module.exports = app;

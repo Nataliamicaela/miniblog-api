@@ -1,7 +1,11 @@
 const pool = require('../db/config');
 
 // GET all authors
-const getAllAuthors = async (req, res) => {
+const getAllAuthors = async (
+    req,
+    res,
+    next
+) => {
 
     try {
 
@@ -13,18 +17,18 @@ const getAllAuthors = async (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
-
-        res.status(500).json({
-            error: 'Error fetching authors'
-        });
+        next(error);
 
     }
 
 };
 
 // GET author by id
-const getAuthorById = async (req, res) => {
+const getAuthorById = async (
+    req,
+    res,
+    next
+) => {
 
     const id = parseInt(req.params.id);
 
@@ -55,18 +59,18 @@ const getAuthorById = async (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
-
-        res.status(500).json({
-            error: 'Error fetching author'
-        });
+        next(error);
 
     }
 
 };
 
 // CREATE author
-const createAuthor = async (req, res) => {
+const createAuthor = async (
+    req,
+    res,
+    next
+) => {
 
     const { name, email, bio } = req.body;
 
@@ -95,26 +99,18 @@ const createAuthor = async (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
-
-        if (error.code === '23505') {
-
-            return res.status(400).json({
-                error: 'Email already exists'
-            });
-
-        }
-
-        res.status(500).json({
-            error: 'Error creating author'
-        });
+        next(error);
 
     }
 
 };
 
 // UPDATE author
-const updateAuthor = async (req, res) => {
+const updateAuthor = async (
+    req,
+    res,
+    next
+) => {
 
     const id = parseInt(req.params.id);
 
@@ -156,26 +152,18 @@ const updateAuthor = async (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
-
-        if (error.code === '23505') {
-
-            return res.status(400).json({
-                error: 'Email already exists'
-            });
-
-        }
-
-        res.status(500).json({
-            error: 'Error updating author'
-        });
+        next(error);
 
     }
 
 };
 
 // DELETE author
-const deleteAuthor = async (req, res) => {
+const deleteAuthor = async (
+    req,
+    res,
+    next
+) => {
 
     const id = parseInt(req.params.id);
 
@@ -206,11 +194,7 @@ const deleteAuthor = async (req, res) => {
 
     } catch (error) {
 
-        console.error(error);
-
-        res.status(500).json({
-            error: 'Error deleting author'
-        });
+        next(error);
 
     }
 

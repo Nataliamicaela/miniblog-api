@@ -72,7 +72,7 @@ describe('Posts endpoints', () => {
     expect(response.statusCode).toBe(400);
 
     expect(response.body.error)
-      .toBe('Author does not exist');
+      .toBe('Related resource does not exist');
 
   });
 

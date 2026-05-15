@@ -1,7 +1,11 @@
 const pool = require('../db/config');
 
 // GET all comments
-const getAllComments = async (req, res) => {
+const getAllComments = async (
+  req,
+  res,
+  next
+) => {
 
   try {
 
@@ -27,18 +31,18 @@ const getAllComments = async (req, res) => {
 
   } catch (error) {
 
-    console.error(error.message);
-
-    res.status(500).json({
-      error: 'Error fetching comments'
-    });
+    next(error);
 
   }
 
 };
 
 // GET comment by id
-const getCommentById = async (req, res) => {
+const getCommentById = async (
+  req,
+  res,
+  next
+) => {
 
   const id = parseInt(req.params.id);
 
@@ -84,18 +88,18 @@ const getCommentById = async (req, res) => {
 
   } catch (error) {
 
-    console.error(error.message);
-
-    res.status(500).json({
-      error: 'Error fetching comment'
-    });
+    next(error);
 
   }
 
 };
 
 // GET comments by post
-const getCommentsByPost = async (req, res) => {
+const getCommentsByPost = async (
+  req,
+  res,
+  next
+) => {
 
   const postId = parseInt(req.params.postId);
 
@@ -142,18 +146,18 @@ const getCommentsByPost = async (req, res) => {
 
   } catch (error) {
 
-    console.error(error.message);
-
-    res.status(500).json({
-      error: 'Error fetching post comments'
-    });
+    next(error);
 
   }
 
 };
 
 // CREATE comment
-const createComment = async (req, res) => {
+const createComment = async (
+  req,
+  res,
+  next
+) => {
 
   const { post_id, author_id, content } = req.body;
 
@@ -182,26 +186,18 @@ const createComment = async (req, res) => {
 
   } catch (error) {
 
-    console.error(error.message);
-
-    if (error.code === '23503') {
-
-      return res.status(400).json({
-        error: 'Post or author does not exist'
-      });
-
-    }
-
-    res.status(500).json({
-      error: 'Error creating comment'
-    });
+    next(error);
 
   }
 
 };
 
 // DELETE comment
-const deleteComment = async (req, res) => {
+const deleteComment = async (
+  req,
+  res,
+  next
+) => {
 
   const id = parseInt(req.params.id);
 
@@ -232,11 +228,7 @@ const deleteComment = async (req, res) => {
 
   } catch (error) {
 
-    console.error(error.message);
-
-    res.status(500).json({
-      error: 'Error deleting comment'
-    });
+    next(error);
 
   }
 

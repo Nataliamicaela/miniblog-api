@@ -6,7 +6,11 @@ info:
   description: API REST para gestionar autores y publicaciones
 
 servers:
+  - url: http://localhost:3000
+    description: Local server
+
   - url: https://miniblog-api-production-18a1.up.railway.app
+    description: Production server
 
 paths:
 
