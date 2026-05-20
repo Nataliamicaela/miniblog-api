@@ -1,227 +1,138 @@
-const pool = require('../db/config');
+// Controllers for comments endpoints
+const commentsService = require('../services/comments.service');
 
-// GET all comments
-const getAllComments = async (
-  req,
-  res,
-  next
-) => {
-
+// ==============================
+// GET -> Obtener todos los comentarios
+// ==============================
+const getAllComments = async (req, res, next) => {
   try {
 
-    const result = await pool.query(
+    const comments = await commentsService.getAllComments();
 
-      `SELECT
-        comments.id,
-        comments.content,
-        comments.created_at,
-        posts.title AS post_title,
-        authors.name AS author_name,
-        authors.email AS author_email
-      FROM comments
-      JOIN posts
-      ON comments.post_id = posts.id
-      JOIN authors
-      ON comments.author_id = authors.id
-      ORDER BY comments.id`
-
-    );
-
-    res.json(result.rows);
+    res.json(comments);
 
   } catch (error) {
 
     next(error);
-
   }
-
 };
 
-// GET comment by id
-const getCommentById = async (
-  req,
-  res,
-  next
-) => {
+
+// ==============================
+// GET -> Obtener comentario por ID
+// ==============================
+const getCommentById = async (req, res, next) => {
 
   const id = parseInt(req.params.id);
 
   if (isNaN(id)) {
-
     return res.status(400).json({
       error: 'Invalid comment ID'
     });
-
   }
 
   try {
 
-    const result = await pool.query(
+    const comment = await commentsService.getCommentById(id);
 
-      `SELECT
-        comments.id,
-        comments.content,
-        comments.created_at,
-        posts.title AS post_title,
-        authors.name AS author_name,
-        authors.email AS author_email
-      FROM comments
-      JOIN posts
-      ON comments.post_id = posts.id
-      JOIN authors
-      ON comments.author_id = authors.id
-      WHERE comments.id = $1`,
-
-      [id]
-
-    );
-
-    if (result.rows.length === 0) {
-
+    if (!comment) {
       return res.status(404).json({
         error: 'Comment not found'
       });
-
     }
 
-    res.json(result.rows[0]);
+    res.json(comment);
 
   } catch (error) {
 
     next(error);
-
   }
-
 };
 
-// GET comments by post
-const getCommentsByPost = async (
-  req,
-  res,
-  next
-) => {
+
+// ==============================
+// GET -> Obtener comentarios por post
+// ==============================
+const getCommentsByPost = async (req, res, next) => {
 
   const postId = parseInt(req.params.postId);
 
   if (isNaN(postId)) {
-
     return res.status(400).json({
       error: 'Invalid post ID'
     });
-
   }
 
   try {
 
-    const result = await pool.query(
+    const comments = await commentsService.getCommentsByPost(postId);
 
-      `SELECT
-        comments.id,
-        comments.content,
-        comments.created_at,
-        posts.title AS post_title,
-        authors.name AS author_name,
-        authors.email AS author_email
-      FROM comments
-      JOIN posts
-      ON comments.post_id = posts.id
-      JOIN authors
-      ON comments.author_id = authors.id
-      WHERE comments.post_id = $1
-      ORDER BY comments.id`,
-
-      [postId]
-
-    );
-
-    if (result.rows.length === 0) {
-
+    if (comments.length === 0) {
       return res.status(404).json({
         error: 'No comments found for this post'
       });
-
     }
 
-    res.json(result.rows);
+    res.json(comments);
 
   } catch (error) {
 
     next(error);
-
   }
-
 };
 
-// CREATE comment
-const createComment = async (
-  req,
-  res,
-  next
-) => {
+
+// ==============================
+// POST -> Crear nuevo comentario
+// ==============================
+const createComment = async (req, res, next) => {
 
   const { post_id, author_id, content } = req.body;
 
   if (!post_id || !author_id || !content) {
-
     return res.status(400).json({
       error: 'post_id, author_id and content are required'
     });
-
   }
 
   try {
 
-    const result = await pool.query(
+    const comment = await commentsService.createComment({
+      post_id,
+      author_id,
+      content
+    });
 
-      `INSERT INTO comments
-      (post_id, author_id, content)
-      VALUES ($1, $2, $3)
-      RETURNING *`,
-
-      [post_id, author_id, content]
-
-    );
-
-    res.status(201).json(result.rows[0]);
+    res.status(201).json(comment);
 
   } catch (error) {
 
     next(error);
-
   }
-
 };
 
-// DELETE comment
-const deleteComment = async (
-  req,
-  res,
-  next
-) => {
+
+// ==============================
+// DELETE -> Eliminar comentario
+// ==============================
+const deleteComment = async (req, res, next) => {
 
   const id = parseInt(req.params.id);
 
   if (isNaN(id)) {
-
     return res.status(400).json({
       error: 'Invalid comment ID'
     });
-
   }
 
   try {
 
-    const result = await pool.query(
-      'DELETE FROM comments WHERE id = $1 RETURNING *',
-      [id]
-    );
+    const deleted = await commentsService.deleteComment(id);
 
-    if (result.rows.length === 0) {
-
+    if (!deleted) {
       return res.status(404).json({
         error: 'Comment not found'
       });
-
     }
 
     res.status(204).send();
@@ -229,10 +140,9 @@ const deleteComment = async (
   } catch (error) {
 
     next(error);
-
   }
-
 };
+
 
 module.exports = {
   getAllComments,

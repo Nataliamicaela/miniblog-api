@@ -16,6 +16,7 @@
 - ✅ CRUD completo de **comments**    
 - ✅ Base de datos **PostgreSQL**
 - ✅ Queries SQL parametrizadas (sin ORM)
+- ✅ Arquitectura en capas (**controllers** + **services**)
 - ✅ Validaciones de entrada
 - ✅ Testing con **Jest** y **Supertest**
 - ✅ Documentación **Swagger / OpenAPI**
@@ -209,6 +210,11 @@ incorporando buenas prácticas como TIMESTAMPTZ, índices y constraints.
 Se utilizó IA para asistir en la generación de boilerplate,
 validaciones, rutas, middlewares y debugging del proyecto,
 revisando y adaptando cada resultado al contexto real de la aplicación.
+
+### Refactor a arquitectura de servicios
+Se realizó un refactor para separar la lógica de negocio en una capa de services,
+extrayendo las queries SQL de los controllers para mejorar la testeabilidad
+y mantener la coherencia con las buenas prácticas indicadas en la consigna.
 
 ### Testing
 Se generaron casos de prueba base con Jest y Supertest, luego ajustados
