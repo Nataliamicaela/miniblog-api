@@ -231,4 +231,4 @@ y revisados para garantizar precisión técnica.
 
 ## 👩‍💻 Autor
 
-Developed by **Natalia Alvarez**
+Desarrollado por **Natalia Alvarez**
