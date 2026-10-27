@@ -13,7 +13,7 @@
 
 - ✅ CRUD completo de **authors**
 - ✅ CRUD completo de **posts**
-- ✅ CRUD completo de **comments**    
+- ✅ Gestión de **comments**: consulta, creación y eliminación
 - ✅ Base de datos **PostgreSQL**
 - ✅ Queries SQL parametrizadas (sin ORM)
 - ✅ Arquitectura en capas (**controllers** + **services**)
@@ -25,15 +25,15 @@
 
 ## 🛠️ Tecnologías
 
-| Tecnología       | Uso                          |
-|------------------|------------------------------|
-| Node.js          | Runtime                      |
-| Express          | Framework HTTP               |
-| PostgreSQL       | Base de datos relacional     |
-| pg               | Cliente PostgreSQL para Node |
-| Jest             | Framework de testing         |
-| Supertest        | Testing de endpoints HTTP    |
-| Swagger UI Express | Documentación interactiva  |
+| Tecnología         | Uso                          |
+|--------------------|------------------------------|
+| Node.js            | Runtime                      |
+| Express            | Framework HTTP               |
+| PostgreSQL         | Base de datos relacional     |
+| pg                 | Cliente PostgreSQL para Node |
+| Jest               | Framework de testing         |
+| Supertest          | Testing de endpoints HTTP    |
+| Swagger UI Express | Documentación interactiva    |
 
 ---
 
@@ -141,11 +141,10 @@ Desde ahí podés:
 ### Producción
 
 ```
-https://miniblog-api-production-18a1.up.railway.app/api-docs 
+https://miniblog-api-production-18a1.up.railway.app/api-docs
 ```
 
 ![Swagger UI](docs/img/swagger-preview.png)
-
 
 ---
 
@@ -153,34 +152,34 @@ https://miniblog-api-production-18a1.up.railway.app/api-docs
 
 ### Authors
 
-| Método   | Endpoint            | Descripción                    |
-|----------|---------------------|--------------------------------|
-| `GET`    | `/authors`          | Obtener todos los autores      |
-| `GET`    | `/authors/:id`      | Obtener un autor por ID        |
-| `POST`   | `/authors`          | Crear un nuevo autor           |
-| `PUT`    | `/authors/:id`      | Actualizar un autor            |
-| `DELETE` | `/authors/:id`      | Eliminar un autor              |
+| Método   | Endpoint       | Descripción               |
+|----------|----------------|---------------------------|
+| `GET`    | `/authors`     | Obtener todos los autores |
+| `GET`    | `/authors/:id` | Obtener un autor por ID   |
+| `POST`   | `/authors`     | Crear un nuevo autor      |
+| `PUT`    | `/authors/:id` | Actualizar un autor       |
+| `DELETE` | `/authors/:id` | Eliminar un autor         |
 
 ### Posts
 
-| Método   | Endpoint                      | Descripción                          |
-|----------|-------------------------------|--------------------------------------|
-| `GET`    | `/posts`                      | Obtener todos los posts              |
-| `GET`    | `/posts/:id`                  | Obtener un post por ID               |
-| `GET`    | `/posts/author/:authorId`     | Obtener posts de un autor específico |
-| `POST`   | `/posts`                      | Crear un nuevo post                  |
-| `PUT`    | `/posts/:id`                  | Actualizar un post                   |
-| `DELETE` | `/posts/:id`                  | Eliminar un post                     |
+| Método   | Endpoint                  | Descripción                          |
+|----------|---------------------------|--------------------------------------|
+| `GET`    | `/posts`                  | Obtener todos los posts              |
+| `GET`    | `/posts/:id`              | Obtener un post por ID               |
+| `GET`    | `/posts/author/:authorId` | Obtener posts de un autor específico |
+| `POST`   | `/posts`                  | Crear un nuevo post                  |
+| `PUT`    | `/posts/:id`              | Actualizar un post                   |
+| `DELETE` | `/posts/:id`              | Eliminar un post                     |
 
 ### Comments
 
-| Método   | Endpoint                        | Descripción                           |
-|----------|---------------------------------|---------------------------------------|
-| `GET`    | `/comments`                     | Obtener todos los comentarios         |
-| `GET`    | `/comments/:id`                 | Obtener un comentario por ID          |
-| `GET`    | `/comments/post/:postId`        | Obtener comentarios de un post        |
-| `POST`   | `/comments`                     | Crear un nuevo comentario             |
-| `DELETE` | `/comments/:id`                 | Eliminar un comentario                |
+| Método   | Endpoint                | Descripción                    |
+|----------|-------------------------|--------------------------------|
+| `GET`    | `/comments`             | Obtener todos los comentarios  |
+| `GET`    | `/comments/:id`          | Obtener un comentario por ID   |
+| `GET`    | `/comments/post/:postId` | Obtener comentarios de un post |
+| `POST`   | `/comments`              | Crear un nuevo comentario      |
+| `DELETE` | `/comments/:id`          | Eliminar un comentario         |
 
 ---
 
@@ -188,13 +187,12 @@ https://miniblog-api-production-18a1.up.railway.app/api-docs
 
 La API está desplegada en **Railway** y disponible públicamente:
 
-| Recurso | URL |
-|---|---|
-| 🌐 API Base | https://miniblog-api-production-18a1.up.railway.app |
-| 📖 Swagger Online | https://miniblog-api-production-18a1.up.railway.app/api-docs |
+| Recurso           | URL                                                                        |
+|-------------------|----------------------------------------------------------------------------|
+| 🌐 API Base       | https://miniblog-api-production-18a1.up.railway.app                        |
+| 📖 Swagger Online | https://miniblog-api-production-18a1.up.railway.app/api-docs               |
 
-La configuración se gestiona completamente a través de variables de entorno.
-No se requieren cambios en el código para producción.
+La configuración se gestiona completamente a través de variables de entorno. No se requieren cambios en el código para producción.
 
 ---
 
@@ -203,29 +201,26 @@ No se requieren cambios en el código para producción.
 Durante el desarrollo de este proyecto se utilizó IA como herramienta de apoyo en las siguientes etapas:
 
 ### Diseño del schema SQL
-Se iteró el diseño de la base de datos con prompts progresivamente más detallados,
-incorporando buenas prácticas como TIMESTAMPTZ, índices y constraints.
+
+Se iteró el diseño de la base de datos con prompts progresivamente más detallados, incorporando buenas prácticas como TIMESTAMPTZ, índices y constraints.
 
 ### Generación y revisión de código
-Se utilizó IA para asistir en la generación de boilerplate,
-validaciones, rutas, middlewares y debugging del proyecto,
-revisando y adaptando cada resultado al contexto real de la aplicación.
+
+Se utilizó IA para asistir en la generación de boilerplate, validaciones, rutas, middlewares y debugging del proyecto, revisando y adaptando cada resultado al contexto real de la aplicación.
 
 ### Refactor a arquitectura de servicios
-Se realizó un refactor para separar la lógica de negocio en una capa de services,
-extrayendo las queries SQL de los controllers para mejorar la testeabilidad
-y mantener la coherencia con las buenas prácticas indicadas en la consigna.
+
+Se realizó un refactor para separar la lógica de negocio en una capa de services, extrayendo las queries SQL de los controllers para mejorar la testeabilidad y mantener la coherencia con las buenas prácticas indicadas en la consigna.
 
 ### Testing
-Se generaron casos de prueba base con Jest y Supertest, luego ajustados
-manualmente para cubrir los escenarios específicos de la API.
+
+Se generaron casos de prueba base con Jest y Supertest, luego ajustados manualmente para cubrir los escenarios específicos de la API.
 
 ### Documentación
-La estructura del README y los comentarios de Swagger fueron asistidos por IA
-y revisados para garantizar precisión técnica.
 
-> ⚠️ Todo el código generado fue revisado, comprendido y adaptado manualmente.
-> La IA se utilizó como herramienta de productividad, no como reemplazo del criterio propio.
+La estructura del README y los comentarios de Swagger fueron asistidos por IA y revisados para garantizar precisión técnica.
+
+> ⚠️ Todo el código generado fue revisado, comprendido y adaptado manualmente. La IA se utilizó como herramienta de productividad, no como reemplazo del criterio propio.
 
 ---
 
